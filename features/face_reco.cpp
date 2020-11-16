@@ -23,12 +23,13 @@ void stopPredi(int signum)
     {
         cout << "personne a été reconnu" << endl;
         cout << "inconnu est sortie: " << f << endl;
+        monFlux << "Inconnu" << endl;
     }
 
     exit(signum);
 }
 
-extern "C" int start_reco()
+int main()
 {
 
     signal(SIGINT, stopPredi);

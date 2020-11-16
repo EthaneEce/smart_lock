@@ -11,7 +11,38 @@
 #define ECHO 26
 #define PORT 4444
 
+static pid_t pid = 0;
+char chaine[1000] = "";
 
+void startReco(void) {
+    if ((pid = fork()) == 0) {
+
+        system("./recognize");
+    }
+}
+
+void stopReco(void) {
+    system("killall -2 recognize");
+    sleep(2);
+    
+    FILE* fichier = NULL;
+    fichier = fopen("resReco.txt", "r");
+    bzero(chaine,strlen(chaine);// Chaîne vide de taille TAILLE_MAX
+    if (fichier != NULL)
+    {
+        fgets(chaine, 1000, fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
+        printf("%s", chaine); // On affiche la chaîne
+ 
+        fclose(fichier);
+    }
+
+    
+}
+
+ 
+ 
+ 
+ 
 void setup() {
         wiringPiSetup();
         pinMode(TRIG, OUTPUT);
@@ -52,6 +83,13 @@ int main(void) {
     {
         int dist=getCM();
         printf("Distance: %dcm\n", dist);
+        if(dist<40){
+                printf("Started reco for 20s");
+                startReco();
+                sleep(20);
+                stopReco();
+		sleep(2);
+        }
          delay(100);
     };
   
