@@ -28,7 +28,7 @@ void stopPredi(int signum)
     exit(signum);
 }
 
-int start_reco()
+extern "C" int start_reco()
 {
 
     signal(SIGINT, stopPredi);
