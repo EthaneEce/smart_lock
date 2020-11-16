@@ -38,6 +38,7 @@ print('En attente d\'un badge (pour quitter, Ctrl + c): ') #On affiche un messag
 #On va faire une boucle infinie pour lire en boucle
 while True :
     file = open("rfid_is_accepted.txt", "a")
+    file.seek(0)
     file.write("0")
     turn_red_on()
     rc522.wait_for_tag() #On attnd qu'une puce RFID passe à portée
@@ -53,6 +54,7 @@ while True :
     if not error : #Si on a réussi à nettoyer
         if RFID_UID == uid :
             print('Badge {} autorisé !'.format(uid))
+            file.seek(0)
             file.write("1")
             turn_green_on()
             time.sleep(2)
