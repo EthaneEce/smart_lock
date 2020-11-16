@@ -9,7 +9,7 @@ int z = 0, f = 0;
 
 void stopPredi(int signum)
 {
-    string const nomFichier("res.txt");
+    string const nomFichier("resReco.txt");
     ofstream monFlux(nomFichier.c_str());
 
     cout << "c fini maggle" << endl;

@@ -27,11 +27,11 @@ void stopReco(void) {
     
     FILE* fichier = NULL;
     fichier = fopen("resReco.txt", "r");
-    bzero(chaine,strlen(chaine);// Chaîne vide de taille TAILLE_MAX
+    bzero(chaine,strlen(chaine));// Chaîne vide de taille TAILLE_MAX
     if (fichier != NULL)
     {
         fgets(chaine, 1000, fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
-        printf("%s", chaine); // On affiche la chaîne
+        printf("\n%s", chaine); // On affiche la chaîne
  
         fclose(fichier);
     }
