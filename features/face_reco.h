@@ -25,6 +25,6 @@
 #include <arpa/inet.h>
 
 void stopPredi(int signum);
-int start_reco();
+extern "C" int start_reco();
 
 #endif
