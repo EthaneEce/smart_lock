@@ -5,7 +5,6 @@ import RPi.GPIO as GPIO #Importe la bibliothèque pour contrôler les GPIOs
 from pirc522 import RFID
 import time
 
-
 GPIO.setmode(GPIO.BOARD) #Définit le mode de numérotation (Board)
 GPIO.setwarnings(False) #On désactive les messages d'alerte
 LED_RED = 3 #Définit le numéro du port GPIO qui alimente la led rouge
@@ -36,8 +35,12 @@ rc522 = RFID() #On instancie la lib
 
 print('En attente d\'un badge (pour quitter, Ctrl + c): ') #On affiche un message demandant à l'utilisateur de passer son badge
 
+file = open("rfid_is_accepted.txt", "a")
+file.write("0")
+
 #On va faire une boucle infinie pour lire en boucle
 while True :
+    file.write("0")
     turn_red_on()
     rc522.wait_for_tag() #On attnd qu'une puce RFID passe à portée
     print('tag readed')
@@ -52,6 +55,7 @@ while True :
     if not error : #Si on a réussi à nettoyer
         if RFID_UID == uid :
             print('Badge {} autorisé !'.format(uid))
+            file.write("1")
             turn_green_on()
             time.sleep(2)
         else :
@@ -59,4 +63,6 @@ while True :
             turn_red_on()
     
     time.sleep(0.2) #On attend 1 seconde pour ne pas lire le tag des centaines de fois en quelques milli-secondes
+    
+file.close()
 
