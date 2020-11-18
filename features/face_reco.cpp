@@ -72,7 +72,7 @@ int main()
     time_t timer_begin, timer_end;
     time(&timer_begin);
 
-    while(char == "0"){
+    while(bouf == "0"){
         get(myFile, bouf);
     }
     for (;;)
