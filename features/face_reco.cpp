@@ -6,6 +6,7 @@ using namespace cv::face;
 using namespace std;
 
 int z = 0, f = 0;
+char bouf[1];
 
 void stopPredi(int signum)
 {
@@ -31,6 +32,7 @@ void stopPredi(int signum)
 
 int main()
 {
+    ifstream myfile("readUlt.txt");
 
     signal(SIGINT, stopPredi);
 
@@ -70,6 +72,9 @@ int main()
     time_t timer_begin, timer_end;
     time(&timer_begin);
 
+    while(char == "0"){
+        get(myFile, bouf);
+    }
     for (;;)
     {
         Mat frame;
