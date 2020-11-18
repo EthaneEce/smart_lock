@@ -21,7 +21,7 @@ int main(int argc, char * argv []){
     //Declare trhreads
     int i, nbFunc=1;
     pthread_t fils[nbFunc];
-    void* fonctions[nbFunc] = {check_rfid_is_accepted};
+    void* fonctions[1] = {check_rfid_is_accepted};
     //Execute threads
     for(i=0; i<nbFunc; i++){
         if(pthread_create(&fils[i], NULL, fonctions[i],NULL))
