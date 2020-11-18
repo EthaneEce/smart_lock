@@ -54,6 +54,7 @@ while True :
     if not error : #Si on a réussi à nettoyer
         if RFID_UID == uid :
             print('Badge {} autorisé !'.format(uid))
+            file = open("rfid_is_accepted.txt", "w")
             file.truncate()
             file.write("1")
             turn_green_on()
