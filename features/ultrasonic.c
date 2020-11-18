@@ -85,10 +85,28 @@ int main(void) {
         printf("Distance: %dcm\n", dist);
         if(dist<40){
                 printf("Started reco for 20s");
-                startReco();
-                sleep(20);
-                stopReco();
-		sleep(2);
+                FILE* fichier = NULL;
+                fichier = fopen("readUlt.txt", "w");
+                if (fichier != NULL)
+                {
+
+                    fprintf(fichier,"1"); // On affiche la chaîne
+ 
+                    fclose(fichier);
+                }
+
+                delay(100);
+
+                FILE* fichier = NULL;
+                fichier = fopen("readUlt.txt", "w");
+                if (fichier != NULL)
+                {
+
+                    fprintf(fichier,"0"); // On affiche la chaîne
+ 
+                    fclose(fichier);
+                }
+
         }
          delay(100);
     };
