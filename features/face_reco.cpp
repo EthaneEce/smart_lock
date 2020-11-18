@@ -22,6 +22,7 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+
 using namespace cv;
 using namespace cv::face;
 using namespace std;
@@ -94,7 +95,7 @@ int main()
     time(&timer_begin);
 
     while(bouf == "0"){
-        get(myFile, bouf);
+        get(myfile, bouf);
     }
     for (;;)
     {
@@ -125,7 +126,7 @@ int main()
             {
                 f++;
             }else{
-                z++
+                z++;
             }
         }
         imshow("edges", frame);
