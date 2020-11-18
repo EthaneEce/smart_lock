@@ -15,15 +15,15 @@ void stopPredi(int signum)
     cout << "c fini maggle" << endl;
     if (z > f)
     {
-        cout << "Alexis a été reconnu" << endl;
-        cout << "Alexis est sortie: " << z << endl;
-        monFlux << "Alexis" << endl;
+        cout << "qqun a été reconnu" << endl;
+        cout << "qqun est sortie: " << z << endl;
+        monFlux << "1" << endl;
     }
     else
     {
         cout << "personne a été reconnu" << endl;
         cout << "inconnu est sortie: " << f << endl;
-        monFlux << "Inconnu" << endl;
+        monFlux << "0" << endl;
     }
 
     exit(signum);
@@ -95,13 +95,11 @@ int main()
                 putText(frame, labels[predicted], Point(faces[i].x, faces[i].y - 5), FONT_HERSHEY_DUPLEX, 1, Scalar(0, 255, 0), 1);
             }
             cout << "ID: " << predicted << " | Confidence: " << confidence << endl;
-            if (predicted == 0)
-            {
-                z++;
-            }
-            else if (predicted == -1)
+            if (predicted == -1)
             {
                 f++;
+            }else{
+                z++
             }
         }
         imshow("edges", frame);
