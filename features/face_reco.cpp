@@ -6,7 +6,7 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 
-#include <raspicam/raspicam_cv.h>
+//#include <raspicam/raspicam_cv.h>
 
 #include <iostream>
 #include <ctime>
@@ -28,7 +28,7 @@ using namespace cv::face;
 using namespace std;
 
 int z = 0, f = 0;
-char bouf[1];
+string bouf;
 
 void stopPredi(int signum)
 {
@@ -95,7 +95,7 @@ int main()
     time(&timer_begin);
 
     while(bouf == "0"){
-        get(myfile, bouf);
+        getline(myfile,bouf);
     }
     for (;;)
     {
