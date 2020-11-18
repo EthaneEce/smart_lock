@@ -7,8 +7,8 @@
  
 #define TRUE 1
  
-#define TRIG 4
-#define ECHO 26
+#define TRIG 1
+#define ECHO 27
 #define PORT 4444
 
 static pid_t pid = 0;
