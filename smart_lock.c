@@ -10,6 +10,7 @@ void* check_rfid_is_accepted (void* arg) ;
 
 int main(int argc, char * argv []){
     printf("Hello World!\n");
+    static pid_t pid = 0;
     
     //Setup pins
     wiringPiSetup();
