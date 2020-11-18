@@ -8,7 +8,7 @@ int main(){
     static pid_t pid = 0;
 
     if ((pid = fork()) == 0) {
-        system("./read_rfid_uid.py");
+        system("./features/read_rfid_uid.py");
         printf("%d", pid);
     }
 }
