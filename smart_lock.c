@@ -6,7 +6,7 @@
 #define RED 3
 #define GREEN 5
 
-void* check_rfid_is_accepted (void* arg) ;
+void* launch_reco (void* arg) ;
 
 int main(int argc, char * argv []){
     printf("Hello World!\n");
@@ -16,9 +16,6 @@ int main(int argc, char * argv []){
     wiringPiSetup();
     pinMode(GREEN, OUTPUT); //Green Led
     pinMode(RED, OUTPUT); //Red Led
-    
-    if ((pid = fork()) == 0)
-        system("./features/read_rfid_uid.py"); //Run rfid recognition
     
     //Declare trhreads
     int i, nbFunc=1;
@@ -30,13 +27,6 @@ int main(int argc, char * argv []){
             perror("pthread_create la fonction");
     }
 
-    printf ( "Sortie du main \n") ;
-    return 0;
-}
-
-
-void* check_rfid_is_accepted (void* arg)
-{
     char rfid_reco;
     FILE* fichier = NULL;
     for(;;)
@@ -63,5 +53,15 @@ void* check_rfid_is_accepted (void* arg)
             printf("Read nothing");
         }
     }
+    
+    printf ( "Sortie du main \n") ;
+    return 0;
+}
+
+
+void* launch_reco (void* arg)
+{
+    if ((pid = fork()) == 0)
+        system("./features/read_rfid_uid.py"); //Run rfid recognition
     pthread_exit (0);
 }
