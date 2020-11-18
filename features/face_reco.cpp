@@ -23,12 +23,30 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+#include "../lib/pthread.h"
+#include <thread>
+#include <unistd.h>
+
 using namespace cv;
 using namespace cv::face;
 using namespace std;
 
 int z = 0, f = 0;
-string bouf;
+string bouf="0";
+
+void testStart(){
+    for(;;){
+    ifstream myfile("readUlt.txt");
+    getline(myfile,bouf);
+    myfile.close();
+    if(bouf=="1"){
+        sleep(10);
+        bouf = "0";
+    }
+  }
+
+}
+
 
 void stopPredi(int signum)
 {
@@ -54,8 +72,7 @@ void stopPredi(int signum)
 
 int main()
 {
-    ifstream myfile("readUlt.txt");
-
+    std::thread t1(testStart); 
     signal(SIGINT, stopPredi);
 
     raspicam::RaspiCam_Cv Camera;
@@ -94,12 +111,9 @@ int main()
     time_t timer_begin, timer_end;
     time(&timer_begin);
 
-    while(bouf == "0"){
-        getline(myfile,bouf);
-    }
-    for (;;)
-    {
-        Mat frame;
+    for(;;){
+        if(bouf=="1"){
+             Mat frame;
         Camera.grab();
         Camera.retrieve(frame);
         cvtColor(frame, windowFrame, CV_BGR2GRAY);
@@ -134,7 +148,9 @@ int main()
         numframes++;
 
         //if(waitKey(30) >=0) break;
+        }
     }
+
     Camera.release();
     time(&timer_end);
 
