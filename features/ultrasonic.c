@@ -97,7 +97,7 @@ int main(void) {
 
                 delay(100);
 
-                FILE* fichier = NULL;
+                
                 fichier = fopen("readUlt.txt", "w");
                 if (fichier != NULL)
                 {
@@ -106,6 +106,21 @@ int main(void) {
  
                     fclose(fichier);
                 }
+                
+                sleep(15);
+                int resulat;
+                fichier = fopen("resReco.txt", "r");
+                if (fichier != NULL)
+                {
+
+                    fscanf(fichier,"%d",&resulat);
+                    fprintf(fichier,"0"); // On affiche la chaîne
+ 
+                    fclose(fichier);
+                }
+                
+                printf("Le resultat est %d",resulat);
+                
 
         }
          delay(100);
