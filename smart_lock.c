@@ -42,7 +42,7 @@ void* check_rfid_is_accepted (void* arg)
         //Read file where is printed if rfid is allowed or not
         fichier = fopen("./features/rfid_is_accepted.txt", "r");
         if (fichier != NULL)
-            rfid_reco=fgets(fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
+            rfid_reco=fgetc(fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
 
         fclose(fichier);
         
