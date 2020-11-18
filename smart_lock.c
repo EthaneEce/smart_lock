@@ -16,7 +16,8 @@ int main(int argc, char * argv []){
     pinMode(GREEN, OUTPUT); //Green Led
     pinMode(RED, OUTPUT); //Red Led
     
-    system("./features/read_rfid_uid.py"); //Run rfid recognition
+    if ((pid = fork()) == 0)
+        system("./features/read_rfid_uid.py"); //Run rfid recognition
     
     //Declare trhreads
     int i, nbFunc=1;
