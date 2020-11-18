@@ -40,6 +40,7 @@ while True :
     file = open("rfid_is_accepted.txt", "w")
     file.truncate()
     file.write("0")
+    file.close()
     turn_red_on()
     rc522.wait_for_tag() #On attnd qu'une puce RFID passe à portée
     print('tag readed')
@@ -57,12 +58,13 @@ while True :
             file = open("rfid_is_accepted.txt", "w")
             file.truncate()
             file.write("1")
+            file.close()
             turn_green_on()
             time.sleep(2)
         else :
             print('Badge {} interdit !'.format(uid))
             turn_red_on()
-    file.close()
+    
     time.sleep(0.2) #On attend 1 seconde pour ne pas lire le tag des centaines de fois en quelques milli-secondes
     
 
