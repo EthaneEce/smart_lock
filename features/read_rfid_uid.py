@@ -37,7 +37,7 @@ print('En attente d\'un badge (pour quitter, Ctrl + c): ') #On affiche un messag
 
 #On va faire une boucle infinie pour lire en boucle
 while True :
-    file = open("rfid_is_accepted.txt", "a")
+    file = open("rfid_is_accepted.txt", "w")
     file.truncate()
     file.write("0")
     turn_red_on()
