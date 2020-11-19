@@ -7,8 +7,8 @@
  
 #define TRUE 1
  
-#define TRIG 4
-#define ECHO 26
+#define TRIG 1
+#define ECHO 27
 #define PORT 4444
 
 static pid_t pid = 0;
@@ -85,10 +85,43 @@ int main(void) {
         printf("Distance: %dcm\n", dist);
         if(dist<40){
                 printf("Started reco for 20s");
-                startReco();
-                sleep(20);
-                stopReco();
-		sleep(2);
+                FILE* fichier = NULL;
+                fichier = fopen("readUlt.txt", "w");
+                if (fichier != NULL)
+                {
+
+                    fprintf(fichier,"1"); // On affiche la chaîne
+ 
+                    fclose(fichier);
+                }
+
+                delay(100);
+
+                
+                fichier = fopen("readUlt.txt", "w");
+                if (fichier != NULL)
+                {
+
+                    fprintf(fichier,"0"); // On affiche la chaîne
+ 
+                    fclose(fichier);
+                }
+                
+                sleep(15);
+                int resulat;
+                fichier = fopen("resReco.txt", "r");
+                if (fichier != NULL)
+                {
+
+                    fscanf(fichier,"%d",&resulat);
+                    fprintf(fichier,"0"); // On affiche la chaîne
+ 
+                    fclose(fichier);
+                }
+                
+                printf("Le resultat est %d",resulat);
+                
+
         }
          delay(100);
     };

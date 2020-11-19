@@ -23,14 +23,52 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+#include "../lib/pthread.h"
+#include <thread>
+#include <unistd.h>
+
 using namespace cv;
 using namespace cv::face;
 using namespace std;
 
 int z = 0, f = 0;
-char bouf[1];
+string bouf="0";
 
-void stopPredi(int signum)
+void testStart(){
+    for(;;){
+    ifstream myfile("readUlt.txt");
+    getline(myfile,bouf);
+    myfile.close();
+    if(bouf=="1"){
+        sleep(10);
+        bouf = "0";
+        string const nomFichier("resReco.txt");
+    ofstream monFlux(nomFichier.c_str());
+
+    cout << "c fini maggle" << endl;
+    if (z > f)
+    {
+        cout << "qqun a été reconnu" << endl;
+        cout << "qqun est sortie: " << z << endl;
+        monFlux << "1" << endl;
+        z=0;
+        f=0;
+    }
+    else
+    {
+        cout << "personne a été reconnu" << endl;
+        cout << "inconnu est sortie: " << f << endl;
+        monFlux << "0" << endl;
+        z=0;
+        f=0;
+    }
+    }
+  }
+
+}
+
+
+void stopPredi()
 {
     string const nomFichier("resReco.txt");
     ofstream monFlux(nomFichier.c_str());
@@ -49,14 +87,12 @@ void stopPredi(int signum)
         monFlux << "0" << endl;
     }
 
-    exit(signum);
+    
 }
 
 int main()
 {
-    ifstream myfile("readUlt.txt");
-
-    signal(SIGINT, stopPredi);
+    std::thread t1(testStart); 
 
     raspicam::RaspiCam_Cv Camera;
 
@@ -94,12 +130,9 @@ int main()
     time_t timer_begin, timer_end;
     time(&timer_begin);
 
-    while(bouf == "0"){
-        get(myfile, bouf);
-    }
-    for (;;)
-    {
-        Mat frame;
+    for(;;){
+        if(bouf=="1"){
+             Mat frame;
         Camera.grab();
         Camera.retrieve(frame);
         cvtColor(frame, windowFrame, CV_BGR2GRAY);
@@ -134,7 +167,9 @@ int main()
         numframes++;
 
         //if(waitKey(30) >=0) break;
+        }
     }
+
     Camera.release();
     time(&timer_end);
 
