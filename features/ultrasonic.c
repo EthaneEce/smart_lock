@@ -83,10 +83,10 @@ int main(void) {
     {
         int dist=getCM();
         printf("Distance: %dcm\n", dist);
-        if(dist<40){
+        if(dist<50){
                 printf("Started reco for 20s");
                 FILE* fichier = NULL;
-                fichier = fopen("readUlt.txt", "w");
+                fichier = fopen("./features/readUlt.txt", "w");
                 if (fichier != NULL)
                 {
 
@@ -98,7 +98,7 @@ int main(void) {
                 delay(100);
 
                 
-                fichier = fopen("readUlt.txt", "w");
+                fichier = fopen("./features/readUlt.txt", "w");
                 if (fichier != NULL)
                 {
 
@@ -108,18 +108,7 @@ int main(void) {
                 }
                 
                 sleep(15);
-                int resulat;
-                fichier = fopen("resReco.txt", "r");
-                if (fichier != NULL)
-                {
-
-                    fscanf(fichier,"%d",&resulat);
-                    fprintf(fichier,"0"); // On affiche la chaîne
- 
-                    fclose(fichier);
-                }
                 
-                printf("Le resultat est %d",resulat);
                 
 
         }

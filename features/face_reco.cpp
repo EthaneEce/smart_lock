@@ -34,15 +34,21 @@ using namespace std;
 int z = 0, f = 0;
 string bouf="0";
 
+void is5(){
+    string const nomFichier("./features/resReco.txt");
+    ofstream monFlux(nomFichier.c_str());
+    monFlux << "5" << endl;
+    monFlux.close();
+}
 void testStart(){
     for(;;){
-    ifstream myfile("readUlt.txt");
+    ifstream myfile("./features/readUlt.txt");
     getline(myfile,bouf);
     myfile.close();
     if(bouf=="1"){
         sleep(10);
         bouf = "0";
-        string const nomFichier("resReco.txt");
+        string const nomFichier("./features/resReco.txt");
     ofstream monFlux(nomFichier.c_str());
 
     cout << "c fini maggle" << endl;
@@ -62,7 +68,14 @@ void testStart(){
         z=0;
         f=0;
     }
+    sleep(5);
+    is5();
+    
+    
     }
+    
+    
+    
   }
 
 }
@@ -102,7 +115,7 @@ int main()
 
     map<int, string> labels;
 
-    ifstream infile("./recognizer/labels.txt");
+    ifstream infile("./features/recognizer/labels.txt");
 
     int a;
     string b;
@@ -119,10 +132,10 @@ int main()
     }
 
     CascadeClassifier classifier;
-    classifier.load("./cascades/lbpcascade_frontalface.xml");
+    classifier.load("./features/cascades/lbpcascade_frontalface.xml");
 
     Ptr<LBPHFaceRecognizer> recognizer = createLBPHFaceRecognizer(2, 2, 7, 7, 17);
-    recognizer->load("./recognizer/embeddings.xml");
+    recognizer->load("./features/recognizer/embeddings.xml");
 
     Mat windowFrame;
     namedWindow("edges", 1);
