@@ -15,7 +15,7 @@ void* launch_reco_face (void* arg) ;
 void* launch_reco_ulrasonic (void* arg) ;
 
 int main(int argc, char * argv []){
-    printf("[INFO] Démarrage des modules...")
+    printf("[INFO] Démarrage des modules...");
     //Setup pins
     wiringPiSetup();
     pinMode(GREEN, OUTPUT); //Green Led
