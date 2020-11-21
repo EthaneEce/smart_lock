@@ -32,9 +32,9 @@ using namespace cv::face;
 using namespace std;
 
 int z = 0, f = 0;
-string bouf="0";
+string startReco="0";
 
-void is5(){
+void set5(){
     string const nomFichier("./features/resReco.txt");
     ofstream monFlux(nomFichier.c_str());
     monFlux << "5" << endl;
@@ -43,65 +43,34 @@ void is5(){
 void testStart(){
     for(;;){
     ifstream myfile("./features/readUlt.txt");
-    getline(myfile,bouf);
+    getline(myfile,startReco);
     myfile.close();
-    if(bouf=="1"){
+    if(startReco=="1"){
         sleep(10);
-        bouf = "0";
+        startReco = "0";
         string const nomFichier("./features/resReco.txt");
-    ofstream monFlux(nomFichier.c_str());
+        ofstream monFlux(nomFichier.c_str());
 
-    cout << "c fini maggle" << endl;
-    if (z > f)
-    {
-        cout << "qqun a été reconnu" << endl;
-        cout << "qqun est sortie: " << z << endl;
-        monFlux << "1" << endl;
-        z=0;
-        f=0;
-    }
-    else
-    {
-        cout << "personne a été reconnu" << endl;
-        cout << "inconnu est sortie: " << f << endl;
-        monFlux << "0" << endl;
-        z=0;
-        f=0;
-    }
+        if (z > f)
+        {
+            cout << "[INFO] Un visage a été reconnu" << endl;
+            monFlux << "1" << endl;
+            z=0;
+            f=0;
+
+         }else{
+            cout << "[INFO] Aucun visage a été reconnu" << endl;
+            monFlux << "0" << endl;
+            z=0;
+            f=0;
+        }
     sleep(5);
-    is5();
-    
-    
-    }
-    
-    
-    
+    set5(); 
+    } 
   }
-
 }
 
 
-void stopPredi()
-{
-    string const nomFichier("resReco.txt");
-    ofstream monFlux(nomFichier.c_str());
-
-    cout << "c fini maggle" << endl;
-    if (z > f)
-    {
-        cout << "qqun a été reconnu" << endl;
-        cout << "qqun est sortie: " << z << endl;
-        monFlux << "1" << endl;
-    }
-    else
-    {
-        cout << "personne a été reconnu" << endl;
-        cout << "inconnu est sortie: " << f << endl;
-        monFlux << "0" << endl;
-    }
-
-    
-}
 
 int main()
 {
@@ -117,17 +86,9 @@ int main()
 
     ifstream infile("./features/recognizer/labels.txt");
 
-    int a;
-    string b;
-    while (infile >> a >> b)
-    {
-        labels[a] = b;
-        cout << labels[a] << endl;
-    }
-
     if (!Camera.open())
     {
-        cerr << "Error opening the camera" << endl;
+        cerr << "[ERROR] Error opening the camera" << endl;
         return -1;
     }
 
@@ -143,8 +104,10 @@ int main()
     time_t timer_begin, timer_end;
     time(&timer_begin);
 
+    cout << "[INFO] Module reconnaissance faciale initialisée" << endl;
+
     for(;;){
-        if(bouf=="1"){
+        if(startReco=="1"){
              Mat frame;
         Camera.grab();
         Camera.retrieve(frame);
@@ -178,8 +141,6 @@ int main()
         imshow("edges", frame);
         waitKey(30);
         numframes++;
-
-        //if(waitKey(30) >=0) break;
         }
     }
 

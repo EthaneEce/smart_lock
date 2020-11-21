@@ -8,40 +8,7 @@
 #define TRUE 1
  
 #define TRIG 1
-#define ECHO 27
-#define PORT 4444
-
-static pid_t pid = 0;
-char chaine[1000] = "";
-
-void startReco(void) {
-    if ((pid = fork()) == 0) {
-
-        system("./recognize");
-    }
-}
-
-void stopReco(void) {
-    system("killall -2 recognize");
-    sleep(2);
-    
-    FILE* fichier = NULL;
-    fichier = fopen("resReco.txt", "r");
-    bzero(chaine,strlen(chaine));// Chaîne vide de taille TAILLE_MAX
-    if (fichier != NULL)
-    {
-        fgets(chaine, 1000, fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
-        printf("\n%s", chaine); // On affiche la chaîne
- 
-        fclose(fichier);
-    }
-
-    
-}
-
- 
- 
- 
+#define ECHO 27 
  
 void setup() {
         wiringPiSetup();
@@ -72,47 +39,33 @@ int getCM() {
  
         return distance;
 }
+
+void writeToReadUlt(char toWrite){
+    FILE* fichier = NULL;
+    fichier = fopen("./features/readUlt.txt", "w"); 
+    if (fichier != NULL)
+        {
+            fprintf(fichier,toWrite); // On affiche la chaîne
+            fclose(fichier);
+        }
+}
  
 int main(void) {
     setup();
-    
-    
-    
+    printf("\n[INFO] Module télémètre ultrason initialisé");
     
     while (1)
     {
         int dist=getCM();
-        printf("Distance: %dcm\n", dist);
-        if(dist<50){
-                printf("Started reco for 20s");
-                FILE* fichier = NULL;
-                fichier = fopen("./features/readUlt.txt", "w");
-                if (fichier != NULL)
-                {
-
-                    fprintf(fichier,"1"); // On affiche la chaîne
- 
-                    fclose(fichier);
-                }
-
-                delay(100);
-
-                
-                fichier = fopen("./features/readUlt.txt", "w");
-                if (fichier != NULL)
-                {
-
-                    fprintf(fichier,"0"); // On affiche la chaîne
- 
-                    fclose(fichier);
-                }
-                
-                sleep(15);
-                
-                
-
+        //printf("Distance: %dcm\n", dist);
+        if(dist<30){
+            printf("[INFO] Lancement de la reconnaissance faciale pour 10s\n");           
+            writeToReadUlt("1");
+            delay(100);
+            writeToReadUlt("0");                
+            sleep(15);
         }
-         delay(100);
+        delay(100);
     };
   
  
