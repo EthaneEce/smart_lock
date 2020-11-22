@@ -8,7 +8,8 @@
 #define TRUE 1
  
 #define TRIG 1
-#define ECHO 27 
+#define ECHO 27
+
  
 void setup() {
         wiringPiSetup();
@@ -39,33 +40,46 @@ int getCM() {
  
         return distance;
 }
-
-void writeToReadUlt(char toWrite){
-    FILE* fichier = NULL;
-    fichier = fopen("./features/readUlt.txt", "w"); 
-    if (fichier != NULL)
-        {
-            fprintf(fichier,toWrite); // On affiche la chaîne
-            fclose(fichier);
-        }
-}
  
 int main(void) {
     setup();
     printf("\n[INFO] Module télémètre ultrason initialisé");
     
+    
+    
     while (1)
     {
         int dist=getCM();
-        //printf("Distance: %dcm\n", dist);
-        if(dist<30){
-            printf("[INFO] Lancement de la reconnaissance faciale pour 10s\n");           
-            writeToReadUlt("1");
-            delay(100);
-            writeToReadUlt("0");                
-            sleep(15);
+        if(dist<150){
+                printf("\n[INFO] Lancement de la reconnaissance faciale pour 10s"); 
+                FILE* fichier = NULL;
+                fichier = fopen("./features/readUlt.txt", "w");
+                if (fichier != NULL)
+                {
+
+                    fprintf(fichier,"1"); // On affiche la chaîne
+ 
+                    fclose(fichier);
+                }
+
+                delay(100);
+
+                
+                fichier = fopen("./features/readUlt.txt", "w");
+                if (fichier != NULL)
+                {
+
+                    fprintf(fichier,"0"); // On affiche la chaîne
+ 
+                    fclose(fichier);
+                }
+                
+                sleep(15);
+                
+                
+
         }
-        delay(100);
+         delay(100);
     };
   
  

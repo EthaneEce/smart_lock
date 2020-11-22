@@ -108,7 +108,7 @@ int main()
 
     for(;;){
         if(startReco=="1"){
-             Mat frame;
+        Mat frame;
         Camera.grab();
         Camera.retrieve(frame);
         cvtColor(frame, windowFrame, CV_BGR2GRAY);

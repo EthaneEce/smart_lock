@@ -49,8 +49,6 @@ void* check_rfid_is_accepted (void* arg){
         if (fichier != NULL){
             fscanf(fichier,"%d",&rfid_reco);// On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
             //printf("\nj'ai lu :%d",rfid_reco);
-            //
-            //printf("\n%d",rfid_reco);
         }
         fclose(fichier);
         
@@ -99,7 +97,6 @@ void* check_freco_is_accepted (void* arg) {
         fichier = fopen("./features/resReco.txt", "r");
         if (fichier != NULL){
             fscanf(fichier,"%d",&face_reco);// On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
-            //printf("\nj'ai lu :%d",face_reco);
             
         }
         fclose(fichier);
@@ -115,7 +112,7 @@ void* check_freco_is_accepted (void* arg) {
             digitalWrite(RED, LOW);
         }    
         else if(face_reco == 0){
-        printf("\n[INFO] Allumage de la LED verte");
+        printf("\n[INFO] Allumage de la LED rouge");
             //Badge not allowed
             digitalWrite(GREEN, LOW);
             digitalWrite(RED, HIGH);
