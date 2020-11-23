@@ -20,7 +20,7 @@ Projet de développement d'une serrure intelligente avec une raspberry pi, utili
       make all
 
 
-## 2. Contenu
+## Contenu
 
 ###  1. Fichiers sources
     => train.cpp lit des images, et génère un fichier .xml d'entrainement
@@ -66,6 +66,6 @@ project
     │   pthread.h
 ```
 
-## 3. Utilisation
+## Utilisation
     =>Entrainer le modèle : ./features/train
     =>Lancer l'ensemble : ./smart_lock
