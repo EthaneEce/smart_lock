@@ -1,5 +1,6 @@
 # smart_lock
 Projet de développement d'une serrure intelligente avec une raspberry pi, utilisant la reconnaissance faciale et le RFID
+
 ## Installation
 ### 1. Installer les packages nescessaires
     => sudo apt-get install build-essential wiringpi python3.7 python3.7-dev make libopencv-dev libopencv-contrib-dev
